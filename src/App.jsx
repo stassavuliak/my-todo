@@ -1,33 +1,53 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import TodoItem from './components/TodoItem'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  // states
+  const [todos, setTodos] = useState([]);// create a state for task list
+  const [newTodoText, setNewTodoText] = useState('');// save the text that the user enters into the input
+
+  // create new task
+  const handleAddTodo = () => { // function create new task and add to the list
+    if (!newTodoText) return;
+    const newTodo = {id: Date.now(), text: newTodoText}; // create an object of the task
+    setTodos([...todos, newTodo]); // create a new array with the last new task
+    setNewTodoText(''); // clean the input field after adding the new task
+  }
+
+  // delete task
+  const handleDeleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  }
+
+  const handleEditTodo = (id, newText) => {
+    setTodos(prev =>
+      prev.map(t => (t.id === id ? { ...t, text: newText } : t))
+    );
+  };
+ 
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <> 
+      <input 
+        id='todoInput'
+        type="text" 
+        value={newTodoText}
+        onChange={(e) => setNewTodoText(e.target.value)} 
+      />
+
+      <button onClick={handleAddTodo}>add task</button>
+
+      {todos.map(todo => (
+        <TodoItem 
+          key={todo.id} 
+          id={todo.id} 
+          text={todo.text}
+          onDelete={handleDeleteTodo}
+          onEdit={handleEditTodo}
+        />
+      ))}
     </>
   )
 }
