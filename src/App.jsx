@@ -1,12 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TodoItem from './components/TodoItem'
 
 
 function App() {
-  // states
-  const [todos, setTodos] = useState([]);// create a state for task list
+
+  // states 
+  const [todos, setTodos] = useState(() => { //add function to read data from localStorage
+    try {
+      const saved = localStorage.getItem('todos');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.error('Error parsing todos from localStorage', e);
+      return [];
+    }
+  });// create a state for task list
+
   const [newTodoText, setNewTodoText] = useState('');// save the text that the user enters into the input
+
+
+  // Every time todos change? save them in localStorage (if its not empty)
+  useEffect(() => {
+    if (todos.length > 0) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+  }, [todos])
+
 
   // create new task
   const handleAddTodo = () => { // function create new task and add to the list
@@ -16,17 +35,20 @@ function App() {
     setNewTodoText(''); // clean the input field after adding the new task
   }
 
+
   // delete task
   const handleDeleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
   }
 
+
+  // handle edit
   const handleEditTodo = (id, newText) => {
     setTodos(prev =>
       prev.map(t => (t.id === id ? { ...t, text: newText } : t))
     );
-  };
- 
+  }; 
+
 
   return (
     <> 
@@ -51,5 +73,6 @@ function App() {
     </>
   )
 }
+
 
 export default App
