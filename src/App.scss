@@ -1,10 +1,25 @@
 body {
-  background: #83c1e8;
+  /* background: #83c1e8; */
+  background: #124667;
   font-family: 'Montserrat', sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+input {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 #root {
@@ -13,7 +28,13 @@ body {
 }
 
 button {
+  border: none;
+  all: unset;
   cursor: pointer;
+  transition: .3s ease;
+  &:hover {
+    opacity: .3s ease;
+  } 
 }
 
 .todo {

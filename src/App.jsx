@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import TodoItem from './components/TodoItem';
 import {  FaListCheck, FaCirclePlus } from "react-icons/fa6";
 

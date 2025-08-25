@@ -1,4 +1,5 @@
 .todo {
+  font-size: 14px;
   &__title {
     display: flex;
     align-items: center;
@@ -8,17 +9,69 @@
       font-size: 25px;
       margin: 0;
     }
+    svg {
+      font-size: 22px;
+      color: #124667;
+    }
   }
 
   &__head-form {
     margin: 15px 0 30px;
     display: flex;
     background: #dad7d7;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 10px 10px 15px;
+    border-radius: 50px;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__btn-add {
+    background: none;
+    border: none;
+    font-size: 30px;
+    line-height: 0;
+    color: #4CAF50;
+  }
+
+  &__btn-save {
+    color: #69696B;
   }
   
   &__input-add {
     width: 100%;
+    line-height: 1;
+  }
+
+  &__btn-edit {
+    color: #3A86FF;
+  }
+
+  &__btn-delete {
+    color: #FF6B6B;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #dad7d7;
+    padding: 10px 10px 10px 15px;
+    border-radius: 10px;
+    span {
+      width: 100%;
+    }
+    button {
+      font-size: 16px;
+      height: 16px;
+      &:hover {
+        opacity: .7;
+      }
+    }
   }
 }
