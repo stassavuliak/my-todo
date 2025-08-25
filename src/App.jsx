@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import TodoItem from './components/TodoItem'
+import { useState, useEffect } from 'react';
+import './App.css';
+import TodoItem from './components/TodoItem';
+import {  FaListCheck, FaCirclePlus } from "react-icons/fa6";
 
 
 function App() {
@@ -16,12 +17,13 @@ function App() {
     }
   });// create a state for task list
 
+
   const [newTodoText, setNewTodoText] = useState('');// save the text that the user enters into the input
 
 
-  // Every time todos change? save them in localStorage (if its not empty)
+  // Every time todos change? save them in localStorage 
   useEffect(() => {
-    if (todos.length > 0) {
+    if (todos) {
       localStorage.setItem('todos', JSON.stringify(todos));
     }
   }, [todos])
@@ -51,26 +53,40 @@ function App() {
 
 
   return (
-    <> 
-      <input 
-        id='todoInput'
-        type="text" 
-        value={newTodoText}
-        onChange={(e) => setNewTodoText(e.target.value)} 
-      />
+    <div className='todo'> 
+      {/* title */}
+      <div className="todo__title">
+        <h1>ToDo List</h1>
+        <FaListCheck />
+      </div>
 
-      <button onClick={handleAddTodo}>add task</button>
-
-      {todos.map(todo => (
-        <TodoItem 
-          key={todo.id} 
-          id={todo.id} 
-          text={todo.text}
-          onDelete={handleDeleteTodo}
-          onEdit={handleEditTodo}
+      {/* form */}
+      <div className="todo__head-form">
+        <input 
+          className='todo__input-add'
+          id='todoInput'
+          type="text" 
+          value={newTodoText}
+          placeholder='Add your task'
+          onChange={(e) => setNewTodoText(e.target.value)} 
         />
-      ))}
-    </>
+        <button className='todo__btn-add' onClick={handleAddTodo}><FaCirclePlus/></button>
+      </div>
+
+      {/* list */}
+      <div className="todo__list">
+        {todos.map(todo => (
+          <TodoItem 
+            key={todo.id} 
+            id={todo.id} 
+            text={todo.text}
+            onDelete={handleDeleteTodo}
+            onEdit={handleEditTodo}
+          />
+        ))}
+      </div>
+
+    </div>
   )
 }
 

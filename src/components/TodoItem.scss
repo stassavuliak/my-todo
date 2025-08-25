@@ -1,0 +1,24 @@
+.todo {
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    h1 {
+      font-size: 25px;
+      margin: 0;
+    }
+  }
+
+  &__head-form {
+    margin: 15px 0 30px;
+    display: flex;
+    background: #dad7d7;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  &__input-add {
+    width: 100%;
+  }
+}
