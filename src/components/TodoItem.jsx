@@ -2,9 +2,10 @@ import {useState} from 'react';
 import { FaTrashCan, FaPen, FaFloppyDisk } from "react-icons/fa6";
 import './TodoItem.scss';
 
- function TodoItem ({text, id, onDelete, onEdit}) {
+ function TodoItem ({text, id, onDelete, onEdit, completed, onToggleCompleted}) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(text);
+
 
    // edit task
   const handleEditClick = () => {
@@ -28,19 +29,29 @@ import './TodoItem.scss';
   }
 
   return (
-    <div className='todo__item'>
+    <div className="todo__item">
+      {/* checkbox */}
+      <label className="checkbox">
+        <input 
+          type="checkbox" 
+          checked={completed}
+          onChange={(e) => onToggleCompleted(id, e.target.checked)}
+        />
+        <span className="custom"></span>
+      </label>
+      
       {isEditing 
         ? <>
             <input value={editedText} onChange={(e) => setEditedText(e.target.value)} autoFocus /> 
-            <button className='todo__btn-save' onClick={handleSaveClick}><FaFloppyDisk /></button>
+            <button className="todo__btn-save" onClick={handleSaveClick}><FaFloppyDisk /></button>
           </>
         : <>
-            <span>{text}</span> 
-            <button className='todo__btn-edit' onClick={handleEditClick}><FaPen /></button>
+            <p><span className={completed ? "done" : ""}>{text}</span></p>
+            <button className="todo__btn-edit" onClick={handleEditClick}><FaPen /></button>
           </>
       }
       
-      <button className='todo__btn-delete' onClick={() => onDelete(id)}><FaTrashCan /></button>
+      <button className="todo__btn-delete" onClick={() => onDelete(id)}><FaTrashCan /></button>
     </div>
   )
 }

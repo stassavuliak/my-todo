@@ -61,10 +61,15 @@
     gap: 10px;
     align-items: center;
     background: #dad7d7;
-    padding: 10px 10px 10px 15px;
+    padding: 10px 10px 10px 12px;
     border-radius: 10px;
-    span {
+    p {
       width: 100%;
+    }
+    span {
+      &.done {
+        text-decoration: line-through;
+      }
     }
     button {
       font-size: 16px;

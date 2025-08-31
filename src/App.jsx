@@ -7,15 +7,22 @@ import {  FaListCheck, FaCirclePlus } from "react-icons/fa6";
 function App() {
 
   // states 
-  const [todos, setTodos] = useState(() => { //add function to read data from localStorage
+  const [todos, setTodos] = useState(() => { 
     try {
       const saved = localStorage.getItem('todos');
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+
+      const parsed = JSON.parse(saved);
+
+      return parsed.map(todo => ({
+        ...todo,
+        completed: typeof todo.completed === "boolean" ? todo.completed : false
+      }));
     } catch (e) {
       console.error('Error parsing todos from localStorage', e);
       return [];
     }
-  });// create a state for task list
+  });
 
 
   const [newTodoText, setNewTodoText] = useState('');// save the text that the user enters into the input
@@ -32,11 +39,12 @@ function App() {
   // create new task
   const handleAddTodo = () => { // function create new task and add to the list
     if (!newTodoText) return;
-    const newTodo = {id: Date.now(), text: newTodoText}; // create an object of the task
+    const newTodo = {id: Date.now(), text: newTodoText, completed: false}; // create an object of the task
     setTodos([...todos, newTodo]); // create a new array with the last new task
     setNewTodoText(''); // clean the input field after adding the new task
   }
 
+  console.log(todos);
 
   // delete task
   const handleDeleteTodo = (id) => {
@@ -50,6 +58,16 @@ function App() {
       prev.map(t => (t.id === id ? { ...t, text: newText } : t))
     );
   }; 
+
+
+  // handle toggle completed
+  const handleToggleCompleted = (id, nextCompleted) => {
+    setTodos(prevTodos =>
+      prevTodos.map(todo =>
+        todo.id === id ? { ...todo, completed: nextCompleted } : todo
+      )
+    );
+  };
 
 
   return (
@@ -80,8 +98,10 @@ function App() {
             key={todo.id} 
             id={todo.id} 
             text={todo.text}
+            completed={todo.completed}
             onDelete={handleDeleteTodo}
             onEdit={handleEditTodo}
+            onToggleCompleted={handleToggleCompleted}
           />
         ))}
       </div>

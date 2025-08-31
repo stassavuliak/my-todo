@@ -8,23 +8,13 @@ body {
   box-sizing: border-box;
 }
 
-input {
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  box-shadow: none;
-  outline: none;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
 #root {
   max-width: 600px;
   margin: 0 auto;
+}
+
+p {
+  margin: 0;
 }
 
 button {
@@ -46,18 +36,73 @@ button {
 }
 
 input {
-  all: unset;               
+  // all: unset;               
   box-sizing: border-box;   
   display: inline-block;    
   width: 100%;             
   font: inherit;            
   color: inherit;          
   background: none;         
-  border: none;             
-  outline: none;            
-  appearance: none;        
-  -webkit-appearance: none; 
-  -moz-appearance: none;    
+}
+
+input {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  // -webkit-appearance: none;
+  // -moz-appearance: none;
+  // appearance: none;
+}
+
+/* Контейнер */
+.checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+  user-select: none;
+}
+
+/* Скрываем системный чекбокс, но оставляем его доступным */
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Кастомная коробочка */
+.checkbox .custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #555;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Галочка при активном состоянии */
+.checkbox input:checked + .custom {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.checkbox input:checked + .custom::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 
